@@ -16,81 +16,97 @@ const items = [
     {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
   ]
 
-  filter (price){
-    
+  const filter = (items, properties) => {
+    const filtered = []
+    for (let i = 0; i < items.length; i++) {
+      let match = true
+      for (let property in properties) {
+        if (property === "tags") {
+          for (let tag of properties[property]) {
+            if (!items[i].tags.includes(tag)) match = false
+          }
+        } else if (property === "name"){
+          if (!items[i][property].includes(properties[property])) match = false
+        } else if (property === "price") {
+          if (properties[property] !== items[i][property]) match = false
+        }
+      }
+      if (match) filtered.push(items[i])
+    }
+    return filtered
   }
   
-//   test('original array has not mutated', () => {
-//     const items = [
-//       {name: 'bread', price: 2, tags: ['perishable', 'staple']},
-//       {name: 'cereal', price: 4, tags: ['perishable', 'staple']},
-//       {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
-//       {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
-//       {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
-//       {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
-//       {name: 'banana', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
-//       {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
-//     ]
-//     filter(items, 'fruit');
-//     expect(items).toEqual([
-//       {name: 'bread', price: 2, tags: ['perishable', 'staple']},
-//       {name: 'cereal', price: 4, tags: ['perishable', 'staple']},
-//       {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
-//       {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
-//       {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
-//       {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
-//       {name: 'banana', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
-//       {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
-//     ]);
-//   })
+  test('original array has not mutated', () => {
+    const items = [
+      {name: 'bread', price: 2, tags: ['perishable', 'staple']},
+      {name: 'cereal', price: 4, tags: ['perishable', 'staple']},
+      {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
+      {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
+      {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
+      {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
+      {name: 'banana', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
+      {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
+    ]
+    filter(items, 'fruit');
+    expect(items).toEqual([
+      {name: 'bread', price: 2, tags: ['perishable', 'staple']},
+      {name: 'cereal', price: 4, tags: ['perishable', 'staple']},
+      {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
+      {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
+      {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
+      {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
+      {name: 'banana', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
+      {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
+    ]);
+  })
   
-//   test('filtering by {price:2} returns array with only items with price = 2', () => {
-//     const items = [
-//       {name: 'bread', price: 2, tags: ['perishable', 'staple']},
-//       {name: 'cereal', price: 4, tags: ['perishable', 'staple']},
-//       {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
-//       {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
-//       {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
-//       {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
-//       {name: 'banana', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
-//       {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
-//     ]
-//     expect(filter(items, {price: 2})).toEqual([
-//       {name: 'bread', price: 2, tags: ['perishable', 'staple']},
-//       {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']}
-//     ])
-//   })
+  test('filtering by {price:2} returns array with only items with price = 2', () => {
+    const items = [
+      {name: 'bread', price: 2, tags: ['perishable', 'staple']},
+      {name: 'cereal', price: 4, tags: ['perishable', 'staple']},
+      {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
+      {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
+      {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
+      {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
+      {name: 'banana', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
+      {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
+    ]
+    expect(filter(items, {price: 2})).toEqual([
+      {name: 'bread', price: 2, tags: ['perishable', 'staple']},
+      {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']}
+    ])
+  })
   
-//   test("filtering by {tags: ['junk']} returns items where tags contains 'junk'", () => {
-//     const items = [
-//       {name: 'bread', price: 2, tags: ['perishable', 'staple']},
-//       {name: 'cereal', price: 4, tags: ['perishable', 'staple']},
-//       {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
-//       {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
-//       {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
-//       {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
-//       {name: 'banana', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
-//       {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
-//     ]
-//     expect(filter(items, {tags: ['junk']})).toEqual([
-//       {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
-//       {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
-//     ])
-//   })
+  test("filtering by {tags: ['junk']} returns items where tags contains 'junk'", () => {
+    const items = [
+      {name: 'bread', price: 2, tags: ['perishable', 'staple']},
+      {name: 'cereal', price: 4, tags: ['perishable', 'staple']},
+      {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
+      {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
+      {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
+      {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
+      {name: 'banana', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
+      {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
+    ]
+    expect(filter(items, {tags: ['junk']})).toEqual([
+      {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
+      {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
+    ])
+  })
   
-//   test("filtering by {name: 'mil'} returns items where name contains 'mil'", () => {
-//     const items = [
-//       {name: 'bread', price: 2, tags: ['perishable', 'staple']},
-//       {name: 'cereal', price: 4, tags: ['perishable', 'staple']},
-//       {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
-//       {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
-//       {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
-//       {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
-//       {name: 'banana', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
-//       {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
-//     ]
-//     expect(filter(items, {name: 'mil'})).toEqual([
-//       {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
-//       {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
-//     ])
-//   })
+  test("filtering by {name: 'mil'} returns items where name contains 'mil'", () => {
+    const items = [
+      {name: 'bread', price: 2, tags: ['perishable', 'staple']},
+      {name: 'cereal', price: 4, tags: ['perishable', 'staple']},
+      {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
+      {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
+      {name: 'cheetos', price: 1, tags: ['perishable', 'junk', 'dairy']},
+      {name: 'orange juice', price: 4, tags: ['perishable', 'junk', 'vitamin c', 'sugar', 'fruit']},
+      {name: 'banana', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
+      {name: 'apple', price: 1, tags: ['perishable', 'healthy', 'vitamin c', 'fruit']},
+    ]
+    expect(filter(items, {name: 'mil'})).toEqual([
+      {name: 'milk Orgaic', price: 15, tags: ['perishable', 'staple', 'organic', 'dairy']},
+      {name: 'milk', price: 2, tags: ['perishable', 'staple', 'dairy']},
+    ])
+  })
