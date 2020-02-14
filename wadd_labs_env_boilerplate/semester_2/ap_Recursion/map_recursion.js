@@ -9,7 +9,6 @@ function map(array, fn) {
     //     return [fn(array[i]), map((array.slice(i+1, array.length-(i+1))),fn)]
     // }
 
-
   }
 
   const names = ["Cersei", "Jon", "Arya"];

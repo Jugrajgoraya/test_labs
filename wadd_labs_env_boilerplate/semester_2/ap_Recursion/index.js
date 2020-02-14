@@ -60,11 +60,11 @@ function sum(arr) {
   }
   
   function iterativeReverseString(str) {
-    let reveredString = '';
+    let reversedString = '';
     for (let i = str.length - 1; i >= 0; i--) {
-      reveredString += str[i];
+      reversedString += str[i];
     }
-    return reveredString;
+    return reversedString;
   }
   
   let testString = '';
