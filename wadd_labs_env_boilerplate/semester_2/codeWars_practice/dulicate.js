@@ -1,19 +1,17 @@
 
 function duplicateCount(text){
   let temp = 0;
-  let str = '';
-  let string = text.toLowerCase();
-  for(let i = 0; i < string.length; i++){
-      for(let char of str){
-        if(string[i] === char){
-            str += string[i];
-            temp += 1;
-          }else{
-            
-          }
-      }
-   }
-   return str.len;
+  let arr = [];
+  let Arr = text.toLowerCase().split("");
+  for(let char of Arr){
+    if (arr.includes(char)) {
+      temp += 1;
+    }
+    else{
+      arr.push(char)
+    }
+  }
+  return temp;
 }
 
-console.log(duplicateCount('aabb'));
+console.log(duplicateCount('aabbc'));
