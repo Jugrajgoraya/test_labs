@@ -3,7 +3,7 @@
 # Edit at https://www.gitignore.io/?templates=node,linux,macos,windows
 
 ### Linux ###
-*~
+*•
 
 # temporary files which can be created if a process still has a handle open of a deleted file
 .fuse_hidden*
@@ -73,7 +73,7 @@ coverage
 # nyc test coverage
 .nyc_output
 
-# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-task-files)
+# Grunt intermediate storage (https://gruntjs.com/creating-plugins#storing-option-files)
 .grunt
 
 # Bower dependency directory (https://bower.io/)

@@ -4,7 +4,7 @@ class SnakesLadders {
       this.player1 = 0;
       this.player2 = 0;
       this.snakes = [
-        [99, 80], 
+        [99,80], 
         [95,75], 
         [92,88], 
         [89,68], 
